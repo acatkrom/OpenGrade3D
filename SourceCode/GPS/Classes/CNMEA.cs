@@ -152,6 +152,17 @@ namespace OpenGrade
                     //if (isGPSSentencesOn) vtgSentence = nextNMEASentence; from AgIO v5.6from 
                 }
 
+                else if ((words[0] == "$GPHDT" || words[0] == "$GNHDT") && words.Length > 1)
+                {
+                    ParseHDT();
+                    // heading
+                }
+
+                else if ((words[0] == "$GPHPR" || words[0] == "$GNHPR") && words.Length > 4)
+                {
+                    ParseHPR();
+                }
+
                 else if (words[0] == "$PAOGI" && words.Length > 14)
                 {
                     ParseOGI();
@@ -278,6 +289,39 @@ namespace OpenGrade
                 mf.avgSpeed[mf.ringCounter] = speed;
                 if (mf.ringCounter++ > 8) mf.ringCounter = 0;
             }
+        }
+
+        private void ParseHDT()
+        {
+            // $GPHDT,123.456,T*00
+            if (!string.IsNullOrEmpty(words[1]))
+            {
+                double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrue);
+                updatedVTG = true;   // reuse existing flag
+            }
+        }
+
+        private void ParseHPR()
+        {
+            // $GNHPR,time,heading,pitch,roll,quality,...
+            // index:  0     1      2      3     4
+
+            if (!string.IsNullOrEmpty(words[2]))
+            {
+                double.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrue);
+            }
+
+            if (!string.IsNullOrEmpty(words[3]))
+            {
+                double.TryParse(words[4], NumberStyles.Float, CultureInfo.InvariantCulture, out GPSpitch);
+            }
+
+            if (!string.IsNullOrEmpty(words[4]))
+            {
+                double.TryParse(words[3], NumberStyles.Float, CultureInfo.InvariantCulture, out GPSroll);
+            }
+            // Temporary debug – remove later
+            System.Diagnostics.Debug.WriteLine($"HPR → Heading: {headingTrue:F1}   Pitch: {GPSpitch:F1}   Roll: {GPSroll:F1}");
         }
 
         private void ParseOGI()
