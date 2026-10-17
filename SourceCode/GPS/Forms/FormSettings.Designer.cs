@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabVehicle = new System.Windows.Forms.TabPage();
+            this.label36 = new System.Windows.Forms.Label();
+            this.nudBladeBaseline = new System.Windows.Forms.NumericUpDown();
             this.label22 = new System.Windows.Forms.Label();
             this.nudMaxCuttingDepth = new System.Windows.Forms.NumericUpDown();
             this.nudMinSlope = new System.Windows.Forms.NumericUpDown();
@@ -73,6 +75,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tabDesingPt = new System.Windows.Forms.TabPage();
+            this.label35 = new System.Windows.Forms.Label();
             this.btnSendCorr = new System.Windows.Forms.Button();
             this.label34 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
@@ -95,9 +98,9 @@
             this.lblInchesCm = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.bntOK = new System.Windows.Forms.Button();
-            this.label35 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabVehicle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBladeBaseline)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxCuttingDepth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolWidth)).BeginInit();
@@ -137,6 +140,8 @@
             // tabVehicle
             // 
             resources.ApplyResources(this.tabVehicle, "tabVehicle");
+            this.tabVehicle.Controls.Add(this.label36);
+            this.tabVehicle.Controls.Add(this.nudBladeBaseline);
             this.tabVehicle.Controls.Add(this.label22);
             this.tabVehicle.Controls.Add(this.nudMaxCuttingDepth);
             this.tabVehicle.Controls.Add(this.nudMinSlope);
@@ -154,6 +159,34 @@
             this.tabVehicle.Controls.Add(this.nudAntennaHeight);
             this.tabVehicle.Name = "tabVehicle";
             this.tabVehicle.UseVisualStyleBackColor = true;
+            // 
+            // label36
+            // 
+            resources.ApplyResources(this.label36, "label36");
+            this.label36.Name = "label36";
+            this.label36.Click += new System.EventHandler(this.label36_Click);
+            // 
+            // nudBladeBaseline
+            // 
+            this.nudBladeBaseline.DecimalPlaces = 2;
+            resources.ApplyResources(this.nudBladeBaseline, "nudBladeBaseline");
+            this.nudBladeBaseline.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.nudBladeBaseline.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudBladeBaseline.Name = "nudBladeBaseline";
+            this.nudBladeBaseline.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudBladeBaseline.ValueChanged += new System.EventHandler(this.nudBladeBaseline_ValueChanged);
             // 
             // label22
             // 
@@ -620,6 +653,11 @@
             this.tabDesingPt.Name = "tabDesingPt";
             this.tabDesingPt.UseVisualStyleBackColor = true;
             // 
+            // label35
+            // 
+            resources.ApplyResources(this.label35, "label35");
+            this.label35.Name = "label35";
+            // 
             // btnSendCorr
             // 
             resources.ApplyResources(this.btnSendCorr, "btnSendCorr");
@@ -829,11 +867,6 @@
             this.bntOK.UseVisualStyleBackColor = true;
             this.bntOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // label35
-            // 
-            resources.ApplyResources(this.label35, "label35");
-            this.label35.Name = "label35";
-            // 
             // FormSettings
             // 
             resources.ApplyResources(this, "$this");
@@ -852,6 +885,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabVehicle.ResumeLayout(false);
             this.tabVehicle.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBladeBaseline)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxCuttingDepth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinSlope)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudToolWidth)).EndInit();
@@ -952,5 +986,7 @@
         private System.Windows.Forms.Button butAvgDesignPt;
         private System.Windows.Forms.Button btnSendCorr;
         private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.NumericUpDown nudBladeBaseline;
     }
 }

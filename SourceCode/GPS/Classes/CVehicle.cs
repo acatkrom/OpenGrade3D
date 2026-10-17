@@ -20,6 +20,8 @@ namespace OpenGrade
         public double maxCuttingDepth;
         public double bladeOffset;
 
+        public double bladeBaseline;
+
         //width of cutting tool
         public double toolWidth;
 

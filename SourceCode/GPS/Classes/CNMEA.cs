@@ -80,6 +80,7 @@ namespace OpenGrade
         public double bladeTilt;          // degrees (same as GPSroll for now)
         public double bladeDeltaHeight;   // metres – height difference left-to-right
         public double centerAltitude;     // metres – height at the center of the blade
+        public double bladeBaseline;     // metres – distance between the two antennas
 
         //other GIS Info
         public double altitude, speed;

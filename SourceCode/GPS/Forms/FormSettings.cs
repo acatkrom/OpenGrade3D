@@ -11,7 +11,7 @@ namespace OpenGrade
        //class variables
         private readonly FormGPS mf = null;
 
-        private double antennaHeight, minSlope, toolWidth, viewDistUnderGnd, viewDistAboveGnd, gradeDistFromLine, maxCuttingDepth;
+        private double antennaHeight, minSlope, toolWidth, viewDistUnderGnd, viewDistAboveGnd, gradeDistFromLine, maxCuttingDepth, bladeBaseline;
         private byte PwmGainUp, PwmGainDown, PwmMaxUp, PwmMaxDown, PwmMinUp, PwmMinDown, IntegralMultiplier, Deadband;
         private readonly double metImp2m, m2MetImp, metFt2m, m2metFt;
 
@@ -55,6 +55,7 @@ namespace OpenGrade
             toolWidth = Properties.Vehicle.Default.setVehicle_toolWidth;
             minSlope = Properties.Vehicle.Default.setVehicle_minSlope * 100;
             maxCuttingDepth = Properties.Vehicle.Default.setVehicle_MaxCuttingDepth;
+            bladeBaseline = Properties.Vehicle.Default.setVehicle_bladeBaseline;
 
             nudAntennaHeight.ValueChanged -= nudAntennaHeight_ValueChanged;
             nudAntennaHeight.Value = (decimal)(antennaHeight * m2MetImp);
@@ -71,6 +72,11 @@ namespace OpenGrade
             nudMaxCuttingDepth.ValueChanged -= nudMaxCuttingDepth_ValueChanged;
             nudMaxCuttingDepth.Value = (decimal)(maxCuttingDepth * m2MetImp);
             nudMaxCuttingDepth.ValueChanged += nudMaxCuttingDepth_ValueChanged;
+
+            nudBladeBaseline.ValueChanged -= nudBladeBaseline_ValueChanged;
+            nudBladeBaseline.Value = (decimal)(bladeBaseline * m2MetImp);
+            nudBladeBaseline.ValueChanged += nudBladeBaseline_ValueChanged;
+
 
             //Valve settings to what it is in the settings page------------------------------------------------
 
@@ -187,6 +193,9 @@ namespace OpenGrade
             mf.vehicle.maxCuttingDepth = maxCuttingDepth;
             Properties.Vehicle.Default.setVehicle_MaxCuttingDepth = mf.vehicle.maxCuttingDepth;
 
+            mf.vehicle.bladeBaseline = bladeBaseline;
+            Properties.Vehicle.Default.setVehicle_bladeBaseline = mf.vehicle.bladeBaseline;
+
             //Display settings -------------------------------------------------------------------------------
 
             mf.vehicle.viewDistUnderGnd = viewDistUnderGnd;
@@ -231,6 +240,8 @@ namespace OpenGrade
             mf.pn.northingOffset = northingOffset;
 
             mf.pn.altitudeOffset = altitudeOffset;
+
+            mf.pn.bladeBaseline = bladeBaseline;
 
             mf.averagePts = avgPt;
             Properties.Settings.Default.Set_isAvgPt = avgPt;
@@ -399,6 +410,12 @@ namespace OpenGrade
             mf.KeypadToNUD((NumericUpDown)sender, this);
         }
 
+        private void label36_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
         private void bntValveSettingsSend_Click(object sender, EventArgs e)
         {
             
@@ -427,6 +444,10 @@ namespace OpenGrade
         private void nudMaxCuttingDepth_ValueChanged(object sender, EventArgs e)
         {
             maxCuttingDepth = (double)nudMaxCuttingDepth.Value * metImp2m;
+        }
+        private void nudBladeBaseline_ValueChanged(object sender, EventArgs e)
+        {
+            bladeBaseline = (double)nudBladeBaseline.Value * metImp2m;
         }
 
         #endregion Vehicle
