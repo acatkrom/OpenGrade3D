@@ -76,10 +76,16 @@ namespace OpenGrade
         //Position Offset corrections, by Pat
         public double northingOffset, eastingOffset, altitudeOffset;
 
+        // New dual-antenna blade values, by Trevor
+        public double bladeTilt;          // degrees (same as GPSroll for now)
+        public double bladeDeltaHeight;   // metres – height difference left-to-right
+        public double centerAltitude;     // metres – height at the center of the blade
+
         //other GIS Info
         public double altitude, speed;
         public double headingTrue, hdop, ageDiff;
         public double GPSroll, GPSpitch, GPSyawRate;
+
 
         public int fixQuality;
         public int satellitesTracked;
@@ -320,8 +326,21 @@ namespace OpenGrade
             {
                 double.TryParse(words[3], NumberStyles.Float, CultureInfo.InvariantCulture, out GPSroll);
             }
+            // ===== Dual-antenna blade calculations =====
+            const double bladeBaseline = 2.3;   // metres – change later to a setting
+
+            bladeTilt = GPSroll;   // for clarity
+
+            double tiltRad = GPSpitch * (Math.PI / 180.0);
+            bladeDeltaHeight = bladeBaseline * Math.Sin(tiltRad);
+
+            // Center height – starts from the master antenna altitude
+            // Sign may need to be flipped later depending on left/right high
+            centerAltitude = altitude - (bladeDeltaHeight * 0.5);
             // Temporary debug – remove later
-            System.Diagnostics.Debug.WriteLine($"HPR → Heading: {headingTrue:F1}   Pitch: {GPSpitch:F1}   Roll: {GPSroll:F1}");
+            System.Diagnostics.Debug.WriteLine(
+                $"HPR → Heading: {headingTrue:F1}   Pitch: {GPSpitch:F1}   Roll: {GPSroll:F1}   " +
+                $"Tilt: {bladeTilt:F1}°   Δh: {bladeDeltaHeight:F3} m   CenterAlt: {centerAltitude:F3} m");
         }
 
         private void ParseOGI()
